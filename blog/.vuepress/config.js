@@ -4,20 +4,42 @@ module.exports = {
     description: '时间之外，地球往事',
     theme: '@vuepress/theme-blog',
     themeConfig: {
+        smoothScroll: true,
         dateFormat: 'YYYY-MM-DD',
         sidebar: 'auto',
         search: true,
         searchMaxSuggestions: 10,
         nav: [
             {
-                text: 'Blog',
-                link: '/posts',
-                path: 'blog/_posts'
+              text: 'Blog',
+              link: '/',
             },
             {
-                text: 'Tags',
-                link: '/tag/',
+              text: 'Tags',
+              link: '/tag/',
             },
-        ]
-    }
+        ],
+        footer: {
+            contact: [
+                {
+                    type: 'github',
+                    link: 'https://github.com/shijianzhiwai/',
+                }
+            ],
+        },
+    },
+    plugins: [
+        ['@vuepress/blog', {
+            directories: [
+                {
+                    id: 'post',
+                    dirname: '_posts',
+                    path: '/',
+                    pagination: {
+                        lengthPerPage: 2,
+                    },
+                },
+            ],
+        }]
+    ]
  }
