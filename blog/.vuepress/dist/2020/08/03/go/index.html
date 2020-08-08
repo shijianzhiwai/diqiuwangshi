@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>从 Go 在 macOS 下的一个小问题说起 | 时间之外，地球往事</title>
+    <meta name="generator" content="VuePress 1.5.2">
+    
+    <meta name="description" content="
+
+Go 版本：1.14.4
+
+macOS 版本：10.15.5
+
+从一段代码说起
+
+请看下面 Go 代码：
+
+package main
+
+import (
+	"fmt"
+	"time"
+)
+
+func main()  {
+	fmt.Println(time.Now().UnixNano())
+	fmt.Println(time.Now().UnixNano())
+	fmt.Pr ...">
+    <link rel="preload" href="/assets/css/0.styles.880d86be.css" as="style"><link rel="preload" href="/assets/js/app.484538eb.js" as="script"><link rel="preload" href="/assets/js/6.74ac9c2e.js" as="script"><link rel="preload" href="/assets/js/3.05b147b8.js" as="script"><link rel="preload" href="/assets/js/12.681d14ef.js" as="script"><link rel="prefetch" href="/assets/js/10.53b858ac.js"><link rel="prefetch" href="/assets/js/11.13f44bf3.js"><link rel="prefetch" href="/assets/js/4.1b6f5b24.js"><link rel="prefetch" href="/assets/js/5.494cb6b0.js"><link rel="prefetch" href="/assets/js/7.b54fbc9c.js"><link rel="prefetch" href="/assets/js/8.f08851ec.js"><link rel="prefetch" href="/assets/js/9.0451e743.js"><link rel="prefetch" href="/assets/js/vuejs-paginate.1bb16de9.js">
+    <link rel="stylesheet" href="/assets/css/0.styles.880d86be.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div id="vuepress-theme-blog__global-layout"><section id="header-wrapper"><header id="header"><div class="header-wrapper"><div class="title"><a href="/" class="nav-link home-link">时间之外，地球往事 </a></div> <div class="header-right-wrap"><ul class="nav"><li class="nav-item"><a href="/" class="nav-link">Blog</a></li><li class="nav-item"><a href="/tag/" class="nav-link">Tags</a></li></ul> <div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <!----></div></div></header></section> <div id="mobile-header"><div class="mobile-header-bar"><div class="mobile-header-title"><a href="/" class="nav-link mobile-home-link">时间之外，地球往事 </a> <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-menu"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg></div> <div class="mobile-menu-wrapper"><hr class="menu-divider"> <ul class="mobile-nav"><li class="mobile-nav-item"><a href="/" class="nav-link">Blog</a></li><li class="mobile-nav-item"><a href="/tag/" class="nav-link">Tags</a></li> <li class="mobile-nav-item"><!----></li></ul></div></div></div> <div class="content-wrapper"><div id="vuepress-theme-blog__post-layout"><article itemscope="itemscope" itemtype="https://schema.org/BlogPosting" class="vuepress-blog-theme-content"><header><h1 itemprop="name headline" class="post-title">
+        从 Go 在 macOS 下的一个小问题说起
+      </h1> <div class="post-meta"><div itemprop="publisher author" itemtype="http://schema.org/Person" itemscope="itemscope" class="post-meta-author"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-navigation"><polygon points="3 11 22 2 13 21 11 13 3 11"></polygon></svg> <span itemprop="name">徐徐</span> <span itemprop="address">   in Beijing</span></div> <div class="post-meta-date"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-clock"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg> <time pubdate itemprop="datePublished" datetime="2020-08-03T00:00:00.000Z">
+      2020-08-03
+    </time></div> <ul itemprop="keywords" class="post-meta-tags"><li class="post-tag" data-v-42ccfcd5><a href="/tag/Go" data-v-42ccfcd5><span data-v-42ccfcd5>Go</span></a></li><li class="post-tag" data-v-42ccfcd5><a href="/tag/编程" data-v-42ccfcd5><span data-v-42ccfcd5>编程</span></a></li></ul></div></header> <div itemprop="articleBody" class="content__default"><h2 id="实验环境"><a href="#实验环境" class="header-anchor">#</a> 实验环境</h2> <p>Go 版本：1.14.4</p> <p>macOS 版本：10.15.5</p> <h2 id="从一段代码说起"><a href="#从一段代码说起" class="header-anchor">#</a> 从一段代码说起</h2> <p>请看下面 Go 代码：</p> <div class="language-go extra-class"><pre class="language-go"><code><span class="token keyword">package</span> main
+
+<span class="token keyword">import</span> <span class="token punctuation">(</span>
+	<span class="token string">&quot;fmt&quot;</span>
+	<span class="token string">&quot;time&quot;</span>
+<span class="token punctuation">)</span>
+
+<span class="token keyword">func</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span>  <span class="token punctuation">{</span>
+	fmt<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span>time<span class="token punctuation">.</span><span class="token function">Now</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">UnixNano</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+	fmt<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span>time<span class="token punctuation">.</span><span class="token function">Now</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">UnixNano</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+	fmt<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span>time<span class="token punctuation">.</span><span class="token function">Now</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">UnixNano</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
+</code></pre></div><p>代码含义很简单，多次打印当前 unix nano 时间戳，对于输出结果，显而易见都是纳秒精度级别的时间戳：</p> <div class="language-shell extra-class"><pre class="language-shell"><code><span class="token number">1592724840627599000</span>
+<span class="token number">1592724840627643000</span>
+<span class="token number">1592724840627647000</span>
+</code></pre></div><p>本次分享的主题就是从这个结果中的一点小问题开始，为什么后三位都是 0 ？</p> <p>首先我们需要搞明白这是语言的问题，还是系统的问题，于是我们使用 C 语言实现相同的功能：</p> <div class="language-c extra-class"><pre class="language-c"><code><span class="token macro property">#<span class="token directive keyword">include</span> <span class="token string">&lt;stdio.h&gt;</span></span>
+<span class="token macro property">#<span class="token directive keyword">include</span> <span class="token string">&lt;sys/time.h&gt;</span></span>
+
+<span class="token keyword">struct</span> <span class="token class-name">timespec</span> <span class="token function">get_time</span><span class="token punctuation">(</span><span class="token keyword">void</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token keyword">int</span> <span class="token function">main</span> <span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+  	<span class="token comment">// 打印三次</span>
+    <span class="token keyword">struct</span> <span class="token class-name">timespec</span> tp1 <span class="token operator">=</span> <span class="token function">get_time</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">&quot;%ld%ld\n&quot;</span><span class="token punctuation">,</span> tp1<span class="token punctuation">.</span>tv_sec<span class="token punctuation">,</span> tp1<span class="token punctuation">.</span>tv_nsec<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    
+    <span class="token keyword">struct</span> <span class="token class-name">timespec</span> tp2 <span class="token operator">=</span> <span class="token function">get_time</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">&quot;%ld%ld\n&quot;</span><span class="token punctuation">,</span> tp1<span class="token punctuation">.</span>tv_sec<span class="token punctuation">,</span> tp2<span class="token punctuation">.</span>tv_nsec<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    
+    <span class="token keyword">struct</span> <span class="token class-name">timespec</span> tp3 <span class="token operator">=</span> <span class="token function">get_time</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">&quot;%ld%ld\n&quot;</span><span class="token punctuation">,</span> tp1<span class="token punctuation">.</span>tv_sec<span class="token punctuation">,</span> tp3<span class="token punctuation">.</span>tv_nsec<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">struct</span> <span class="token class-name">timespec</span> <span class="token function">get_time</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+    <span class="token keyword">struct</span> <span class="token class-name">timespec</span> tp<span class="token punctuation">;</span>
+    <span class="token function">clock_gettime</span><span class="token punctuation">(</span>CLOCK_REALTIME<span class="token punctuation">,</span> <span class="token operator">&amp;</span>tp<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">return</span> tp<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre></div><p>输出结果：</p> <div class="language-shell extra-class"><pre class="language-shell"><code><span class="token number">1592727195527429000</span>
+<span class="token number">1592727195527446000</span>
+<span class="token number">1592727195527448000</span>
+</code></pre></div><p>看来并非是语言本身的问题，接下来我们探索其原因，先从 Go 入手，看看能不能找到相关的问题。</p> <h2 id="探索"><a href="#探索" class="header-anchor">#</a> 探索</h2> <p>通过 Google 发现，早在 2017 年 9 月的时候就已经有人在 go 项目的 github 提出此问题<a href="https://github.com/golang/go/issues/22037" target="_blank" rel="noopener noreferrer">^1<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a>：“runtime: nanosecond precision lost since mac os x high sierra update” 。</p> <p>看来这个问题是在 macOS High Sierra 版本中引入的。问题讨论中一个概念被提起：commpage。</p> <h2 id="commpage-和-vdso"><a href="#commpage-和-vdso" class="header-anchor">#</a> Commpage 和 vDSO</h2> <p>我们先了解两个概念：commpage 和 vDSO。</p> <p>commpage 其实就是进程内存空间内的一段特殊内存区域，所有进程的地址均一样，64 位的 macOS 中起始地址为 <code>0x7fffffe00000</code> ，通过它我们可以干什么事情呢？看下面的 Go 代码：</p> <div class="language-go extra-class"><pre class="language-go"><code><span class="token keyword">package</span> main
+
+<span class="token keyword">import</span> <span class="token punctuation">(</span>
+	<span class="token string">&quot;fmt&quot;</span>
+	<span class="token string">&quot;unsafe&quot;</span>
+<span class="token punctuation">)</span>
+
+<span class="token keyword">func</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span>  <span class="token punctuation">{</span>
+	<span class="token keyword">var</span> s <span class="token builtin">uintptr</span>
+	s <span class="token operator">=</span> <span class="token number">0x7fffffe00000</span> <span class="token operator">+</span> <span class="token number">0xd8</span>
+	ptr <span class="token operator">:=</span> <span class="token punctuation">(</span><span class="token operator">*</span><span class="token operator">*</span><span class="token builtin">int</span><span class="token punctuation">)</span><span class="token punctuation">(</span>unsafe<span class="token punctuation">.</span><span class="token function">Pointer</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>s<span class="token punctuation">)</span><span class="token punctuation">)</span>
+	fmt<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span><span class="token operator">*</span><span class="token operator">*</span>ptr<span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
+</code></pre></div><p>上面结果为：</p> <div class="language-shell extra-class"><pre class="language-shell"><code><span class="token number">1592734471</span>
+</code></pre></div><p>没错就是一个 unix 时间戳，内核会将一些信息填写到 commpage 地址处，其中偏移量为 0xd8<a href="https://go-review.googlesource.com/c/go/+/67332/5/src/runtime/sys_darwin_amd64.s#124" target="_blank" rel="noopener noreferrer">^2<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a> 的地址处填写的就是时间戳，我们直接拿此地址的值就可以得到时间戳。这样比通过系统调用会更快，毕竟拿到时间戳只是读一下内存就好了，而系统调用却是一个很复杂的过程。在 Linux 上，类似的功能就是 vDSO<a href="https://man7.org/linux/man-pages/man7/vdso.7.html" target="_blank" rel="noopener noreferrer">^3<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a> 了。Go 就是通过这种方式运行 <code>time.Now()</code> 函数的，显然，苹果在新版本的系统中对此进行了更改。</p> <h2 id="对比一下-go-相关代码的变化"><a href="#对比一下-go-相关代码的变化" class="header-anchor">#</a> 对比一下 Go 相关代码的变化</h2> <p>我们找一个比较久的版本 1.8，从此分支的代码中<a href="https://github.com/golang/go/blob/release-branch.go1.8/src/runtime/sys_darwin_amd64.s#L111" target="_blank" rel="noopener noreferrer">^4<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a>我们看到 Go 自己通过 commpage 获取的时间戳：</p> <div class="language-go extra-class"><pre class="language-go"><code>#define	gtod_sec_base	<span class="token number">0x78</span> <span class="token comment">// 存放时间戳的偏移地址，这还是早期版本的偏移地址，现在这个地址已经没有值了</span>
+TEXT nanotime<span class="token operator">&lt;</span><span class="token operator">&gt;</span><span class="token punctuation">(</span>SB<span class="token punctuation">)</span><span class="token punctuation">,</span> NOSPLIT<span class="token punctuation">,</span> $<span class="token number">32</span>
+	MOVQ	$<span class="token number">0x7fffffe00000</span><span class="token punctuation">,</span> BP	<span class="token comment">/* comm page base, commpage 起始地址*/</span>
+	<span class="token comment">// 省略 ...</span>
+	<span class="token comment">// 把时间戳挪到 R14 寄存器 gtod_sec_base(BP) 实际意思为 0x7fffffe00000 + 0x78</span>
+	MOVQ	<span class="token function">gtod_sec_base</span><span class="token punctuation">(</span>BP<span class="token punctuation">)</span><span class="token punctuation">,</span> R14 
+	<span class="token comment">// 省略 ...</span>
+</code></pre></div><p>在最新的 1.14 分支的代码中<a href="https://github.com/golang/go/blob/release-branch.go1.14/src/runtime/sys_darwin_amd64.s#L137" target="_blank" rel="noopener noreferrer">^5<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a>：</p> <div class="language-go extra-class"><pre class="language-go"><code>TEXT runtime·<span class="token function">walltime_trampoline</span><span class="token punctuation">(</span>SB<span class="token punctuation">)</span><span class="token punctuation">,</span>NOSPLIT<span class="token punctuation">,</span>$<span class="token number">0</span>
+	PUSHQ	BP			<span class="token comment">// make a frame; keep stack aligned</span>
+	MOVQ	SP<span class="token punctuation">,</span> BP
+	<span class="token comment">// DI already has *timeval</span>
+	XORL	SI<span class="token punctuation">,</span> SI <span class="token comment">// no timezone needed</span>
+	CALL	<span class="token function">libc_gettimeofday</span><span class="token punctuation">(</span>SB<span class="token punctuation">)</span>
+	POPQ	BP
+	RET
+</code></pre></div><p>1.14 分支代码中 Go 已经去调用 libc 库中的 gettimeofday 函数了，（本质上 gettimeofday 也会使用 commpage 或者 vDSO，看来 Go 的开发者们不想自己维护这个轮子了，Linux 上 Go 还是 vDSO 方案）</p> <p>在 Go 1.14 对 Linux 的时间获取相关代码<a href="https://github.com/golang/go/blob/dev.boringcrypto.go1.14/src/runtime/sys_linux_amd64.s#L209" target="_blank" rel="noopener noreferrer">^6<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a>中，注释中一眼就能看到 “VDSO” 的字样，Linux 中并不会通过 glibc 获取。</p> <p>这里我们可以在 macOS 做一个不严谨的性能测试，运行 Go 标准库获取时间戳和 C 获取时间戳。</p> <p>Go 标准库代码：</p> <div class="language-go extra-class"><pre class="language-go"><code><span class="token keyword">package</span> main
+
+<span class="token keyword">import</span> <span class="token punctuation">(</span>
+	<span class="token string">&quot;fmt&quot;</span>
+	<span class="token string">&quot;time&quot;</span>
+<span class="token punctuation">)</span>
+
+<span class="token keyword">func</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+	start <span class="token operator">:=</span> time<span class="token punctuation">.</span><span class="token function">Now</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+	<span class="token keyword">for</span> i <span class="token operator">:=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> <span class="token number">1000000</span><span class="token punctuation">;</span> i<span class="token operator">++</span> <span class="token punctuation">{</span>
+		time<span class="token punctuation">.</span><span class="token function">Now</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+	<span class="token punctuation">}</span>
+	end <span class="token operator">:=</span> time<span class="token punctuation">.</span><span class="token function">Now</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+	fmt<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span>end<span class="token punctuation">.</span><span class="token function">UnixNano</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">-</span> start<span class="token punctuation">.</span><span class="token function">UnixNano</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
+</code></pre></div><p>C 代码：</p> <div class="language-c extra-class"><pre class="language-c"><code><span class="token macro property">#<span class="token directive keyword">include</span> <span class="token string">&lt;stdio.h&gt;</span></span>
+<span class="token macro property">#<span class="token directive keyword">include</span> <span class="token string">&lt;sys/time.h&gt;</span></span>
+
+<span class="token keyword">struct</span> <span class="token class-name">timespec</span> <span class="token function">get_time</span><span class="token punctuation">(</span><span class="token keyword">void</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token keyword">int</span> <span class="token function">main</span> <span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+    <span class="token keyword">struct</span> <span class="token class-name">timespec</span> start <span class="token operator">=</span> <span class="token function">get_time</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">int</span> a <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+    <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token punctuation">;</span> a <span class="token operator">&lt;</span> <span class="token number">1000000</span><span class="token punctuation">;</span> a<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token function">get_time</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    <span class="token keyword">struct</span> <span class="token class-name">timespec</span> end <span class="token operator">=</span> <span class="token function">get_time</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">&quot;%ld\n&quot;</span><span class="token punctuation">,</span> end<span class="token punctuation">.</span>tv_nsec <span class="token operator">-</span> start<span class="token punctuation">.</span>tv_nsec<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">struct</span> <span class="token class-name">timespec</span> <span class="token function">get_time</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+    <span class="token keyword">struct</span> <span class="token class-name">timespec</span> tp<span class="token punctuation">;</span>
+    <span class="token function">clock_gettime</span><span class="token punctuation">(</span>CLOCK_REALTIME<span class="token punctuation">,</span> <span class="token operator">&amp;</span>tp<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">return</span> tp<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre></div><p>Go 1.14.4 执行时间约为：80000000 ns，C 执行时间约为：33000000 ns，如果 Go 代码使用 1.8 的版本执行时间则要高一个数量级，约为：411000000 ns。虽然新版本的 Go 走了 libc（不清楚是否通过 cgo，cgo 性能较弱，这里应该是有相关优化），但是性能还是强于老版本直接从 commpage 获取。</p> <h2 id="最后"><a href="#最后" class="header-anchor">#</a> 最后</h2> <p>话说回来，之所以 macOS 下后三位会丢失，我认为还是系统本身不再支持了，毕竟已经很久了，直到现在还是老样子。不过这么做是为了什么？缺失的三位是否可以补回呢？似乎可以通过 <code>mach_absolute_time</code> 调用计算出，详细参见 issues 22037<a href="https://github.com/golang/go/issues/22037" target="_blank" rel="noopener noreferrer">^1<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a>。</p></div> <footer><!----> <hr> <!----></footer></article> <div class="sticker vuepress-toc"><div class="vuepress-toc-item vuepress-toc-h2 active"><a href="#实验环境" title="实验环境">实验环境</a></div><div class="vuepress-toc-item vuepress-toc-h2"><a href="#从一段代码说起" title="从一段代码说起">从一段代码说起</a></div><div class="vuepress-toc-item vuepress-toc-h2"><a href="#探索" title="探索">探索</a></div><div class="vuepress-toc-item vuepress-toc-h2"><a href="#commpage-和-vdso" title="Commpage 和 vDSO">Commpage 和 vDSO</a></div><div class="vuepress-toc-item vuepress-toc-h2"><a href="#对比一下-go-相关代码的变化" title="对比一下 Go 相关代码的变化">对比一下 Go 相关代码的变化</a></div><div class="vuepress-toc-item vuepress-toc-h2"><a href="#最后" title="最后">最后</a></div></div></div></div> <footer class="footer" data-v-fdbf4940><div class="footer-left-wrap" data-v-fdbf4940><ul class="contact" data-v-fdbf4940><li class="contact-item" data-v-fdbf4940><a href="https://github.com/shijianzhiwai/" target="_blank" rel="noopener noreferrer" class="nav-link external" data-v-fdbf4940><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-github" data-v-fdbf4940><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22" data-v-fdbf4940></path></svg>
+          
+        </a></li></ul></div> <div class="footer-right-wrap" data-v-fdbf4940><ul class="copyright" data-v-fdbf4940></ul></div></footer></div><div class="global-ui"><!----></div></div>
+    <script src="/assets/js/app.484538eb.js" defer></script><script src="/assets/js/6.74ac9c2e.js" defer></script><script src="/assets/js/3.05b147b8.js" defer></script><script src="/assets/js/12.681d14ef.js" defer></script>
+  </body>
+</html>
