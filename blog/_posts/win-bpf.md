@@ -8,19 +8,19 @@ author: 徐徐
 location: Beijing 
 ---
 
-最近想研究一下 BPF 技术，家里的台式机是 Windows 10 系统，借机想使用一下 WSL，所以就尝试在 WSL 环境下安装 BPF 工具链。但是在 WSL2 环境下安装遇到了很多困难，网上相关在 WSL2 下安装的资料也难以找到，所以就自己花了一下午的时间研究了下。
+最近想研究一下 BPF 技术，家里的台式机是 Windows 10 系统，借机想使用一下 WSL，所以就尝试在 WSL 环境下安装 BPF 工具链。但是在安装中遇到了很多困难，网上相关 WSL2 安装 BPF 的资料也难以找到，所以就自己花了一下午的时间研究了下。
 
 ## 环境
 
-* WSL版本：2
+* WSL 版本：2
 * 发行版：Ubuntu 20.04.1 LTS
-* Windows版本：20H2
+* Windows 版本：20H2
 
 ## 安装
 
 常规环境下，直接按照官方文档安装即可：[https://github.com/iovisor/bcc/blob/master/INSTALL.md](https://github.com/iovisor/bcc/blob/master/INSTALL.md)
 
-但是如果在 WSL2 环境下安装 linux-headers 依赖会找不到包，这个也是意料之中的事情：
+但是如果在 WSL2 环境下安装 linux-headers 依赖会找不到包，这个也是意料之中的事情，这个也是主要要解决的问题。
 
 ```sh
 $ sudo apt-get install bcc-tools libbcc-examples linux-headers-$(uname -r)

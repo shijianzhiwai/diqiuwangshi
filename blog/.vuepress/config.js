@@ -18,6 +18,10 @@ module.exports = {
               text: 'Tags',
               link: '/tag/',
             },
+            {
+                text: 'About',
+                link: '/about',
+            },
         ],
         footer: {
             contact: [
