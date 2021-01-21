@@ -32,7 +32,10 @@ module.exports = {
             ],
         },
     },
-    plugins: [
-        '@vuepress/back-to-top'
-    ]
+    plugins: {
+        '@vuepress/back-to-top': {},
+        '@vuepress/medium-zoom': {
+            selector: '.content__default :not(a) > img',
+        }
+    }
  }
