@@ -34,8 +34,8 @@ module.exports = {
     },
     plugins: {
         '@vuepress/back-to-top': {},
-        '@vuepress/medium-zoom': {
-            selector: '.content__default :not(a) > img',
-        }
+        // '@vuepress/medium-zoom': {
+        //     selector: '.content__default :not(a) > img',
+        // }
     }
  }
