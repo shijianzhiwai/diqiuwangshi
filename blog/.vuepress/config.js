@@ -19,6 +19,10 @@ module.exports = {
               link: '/tag/',
             },
             {
+              text: 'Notes',
+              link: '/notes/',
+            },
+            {
                 text: 'About',
                 link: '/about',
             },
