@@ -58,7 +58,7 @@
 
 ![master_theorem.png](../_posts/img/master_theorem.png)
 
-## 04 | 如何通过LeetCode来进行算法题目练习
+## 04 | 如何通过 LeetCode 来进行算法题目练习
 
 * 做题之前先思考解法，并且知道对应的时间复杂度
 * 看别人的解法，反馈的过程

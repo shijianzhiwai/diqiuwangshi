@@ -9,6 +9,21 @@ module.exports = {
         sidebar: 'auto',
         search: true,
         searchMaxSuggestions: 10,
+        // directories: [
+        //     {
+        //         id: 'post',
+        //         dirname: '_posts',
+        //         path: '/',
+        //     },
+        //     {
+        //         // Unique ID of current classification
+        //         id: 'notes',
+        //         // Target directory
+        //         dirname: 'notes',
+        //         // Path of the `entry page` (or `list page`)
+        //         path: '/notes/',
+        //       },
+        // ],
         nav: [
             {
               text: 'Blog',
@@ -37,7 +52,10 @@ module.exports = {
         },
     },
     markdown: {
-        lineNumbers: true
+        lineNumbers: true,
+        toc: {
+            "containerClass": "table-of-contents1", // vuepress 博客主题会把这个默认覆盖成 none，改个名
+        }
     },
     plugins: {
         '@vuepress/back-to-top': {},
