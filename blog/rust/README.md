@@ -84,7 +84,7 @@ fn main() {
 }
 ```
 
-## Primitives 
+## Primitives
 
 标量类型：
 
