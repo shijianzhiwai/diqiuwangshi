@@ -38,6 +38,10 @@ module.exports = {
               link: '/notes/',
             },
             {
+              text: 'Rust',
+              link: '/rust/',
+            },
+            {
                 text: 'About',
                 link: '/about',
             },
