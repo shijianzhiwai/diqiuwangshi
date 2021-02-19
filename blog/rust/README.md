@@ -109,22 +109,19 @@ fn main() {
     let a_float: f64 = 1.0;
     // 后缀标注
     let an_integer   = 5i32;
-
-    // 默认
+    // 默认类型
     let default_float   = 3.0; // `f64`
     let default_integer = 7;   // `i32`
-    
     // 类型推断，下一行 inferred_type 为 i64
     let mut inferred_type = 12;
     inferred_type = 4294967296i64;
-    
     // mut 定义的变量可修改，无 mut 关键字定义不可修改
     let mut mutable = 12;
     mutable = 21;
     
     // 错误，类型不符合
-    mutable = true;
-    
+    // mutable = true;
+
     // 可覆盖定义
     let mutable = true;
 }

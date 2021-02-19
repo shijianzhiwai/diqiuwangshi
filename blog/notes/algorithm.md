@@ -148,3 +148,35 @@ stack[len(stack)-1]
 // push
 stack = append(stack, v)
 ```
+
+## 09 | 面试题：用队列实现栈&用栈实现队列
+
+提示：负负得正，使用两个栈或者队列实现
+
+* [implement-queue-using-stacks](https://leetcode-cn.com/problems/implement-queue-using-stacks)
+* [implement-stack-using-queues](https://leetcode-cn.com/problems/implement-stack-using-queues)
+
+## 10 | 理论讲解：优先队列
+
+PriorityQueue 优先队列列：正常入、按照优先级出
+
+实现机制：
+
+* Heap 堆 (Binary 二叉堆, Binomial 多项式堆, Fibonacci 斐波那契堆)
+* Binary Search Tree 二叉搜索树
+
+Mini Heap 小顶堆：最小元素最上面，根节点小于左右孩子 \
+Max Heap 大顶堆：相反
+
+![Heap](../_posts/img/heap.png)
+
+## 11 | 面试题：返回数据流中的第K大元素
+
+[kth-largest-element-in-a-stream](https://leetcode-cn.com/problems/kth-largest-element-in-a-stream)
+
+提示：
+
+1. 保存前 k 个最大的值
+2. Min Heap
+
+## 12 | 面试题：返回滑动窗口中的最大值
