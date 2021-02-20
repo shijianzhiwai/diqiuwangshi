@@ -5,3 +5,51 @@ blockquote p:last-child, blockquote li:last-child {
 blockquote p, blockquote li {
     margin: 0 0 10px;
 }
+
+.search-box input {
+    color: $bgColor;
+}
+
+.search-box .suggestions li:hover {
+    background-color: lighten($accentColor, 65%);
+}
+
+.header-wrapper .header-right-wrap .search-box .suggestions a {
+    color: $bgColor;
+}
+
+#base-list-layout .ui-post-summary {
+    color: inherit;
+}
+
+#base-list-layout .ui-post-date {
+    color: inherit;
+}
+
+#base-list-layout .ui-post-tag {
+    color: inherit;
+}
+
+#vuepress-theme-blog__tags-layout .blog-tag
+  display inline-flex
+  align-items center
+  height 45px
+  word-break break-word
+  font-size 20px
+  margin-right 20px
+  margin-bottom 20px
+  padding 0 15px
+  border-radius 5px
+  font-weight 300
+  text-align left
+  box-sizing border-box
+  background-color: rgba(56,139,253,0.1)
+  transition background-color 0.3s
+  color $accentColor
+  text-decoration none
+  transition all 0.5s
+
+  &:hover
+    background-color: rgba(56,139,253,0.2)
+    border: 0px solid 1px #58a6ff;
+    box-shadow: 0 0 1px #58a6ff;
