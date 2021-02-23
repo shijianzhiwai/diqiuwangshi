@@ -189,3 +189,125 @@ fn analyze_slice(slice: &[i32]) {
     println!("the slice has {} elements", slice.len());
 }
 ```
+
+## Custom Types
+
+```rust
+#![allow(dead_code)]
+// A unit struct
+struct Unit;
+
+// A tuple struct
+struct Pair(i32, f32);
+
+// A struct with two fields
+struct Point {
+    x: f32,
+    y: f32,
+}
+
+// Structs can be reused as fields of another struct
+#[allow(dead_code)]
+struct Rectangle {
+    top_left: Point,
+    bottom_right: Point,
+}
+
+// enum 类型
+enum WebEvent {
+    PageLoad, // An `enum` may either be `unit-like`, 可以是 unit 形式的
+    PageUnload,
+    KeyPress(char), // like tuple structs,
+    Paste(String),
+    Click { x: i64, y: i64 }, // or c-like structures.
+}
+
+// 匹配 WebEvent 枚举类型，使用 match 关键词
+fn inspect(event: WebEvent) {
+    match event {
+        WebEvent::PageLoad => println!("page loaded"),
+        WebEvent::PageUnload => println!("page unloaded"),
+        WebEvent::KeyPress(c) => println!("pressed '{}'.", c),
+        WebEvent::Paste(s) => println!("pasted \"{}\".", s),
+        WebEvent::Click { x, y } => {
+            println!("clicked at x={}, y={}.", x, y);
+        },
+    }
+}
+
+enum Status {
+    Rich,
+    Poor,
+}
+
+// 可以当做数字，从 0 开始
+enum Number {
+    Zero,
+    One,
+    Two,
+}
+
+// 自定义数字
+enum Color {
+    Red = 0xff0000,
+    Green = 0x00ff00,
+    Blue = 0x0000ff,
+}
+
+// 常量与静态变量
+static LANGUAGE: &str = "Rust";
+const THRESHOLD: i32 = 10;
+
+fn main() {
+    let point: Point = Point { x: 10.3, y: 0.4 };
+    println!("point coordinates: ({}, {})", point.x, point.y);
+    // 复制结构体，其中更改 x 字段
+    let bottom_right = Point { x: 5.2, ..point };
+    println!("second point: ({}, {})", bottom_right.x, bottom_right.y);
+
+    // 重新命名，解构，两边是大括号
+    let Point { x: top_edge, y: left_edge } = point;
+    let _rectangle = Rectangle {
+        top_left: Point { x: left_edge, y: top_edge },
+        bottom_right, // 这里可以简写命名
+    };
+
+    // Instantiate a unit struct
+    let _unit = Unit;
+
+    let pair = Pair(1, 0.1);
+    println!("pair contains {:?} and {:?}", pair.0, pair.1);
+    // 命名解构
+    let Pair(integer, decimal) = pair;
+    println!("pair contains {:?} and {:?}", integer, decimal);
+    // tuple struct 不能这样解构取值，必须声明类型
+    // let (a, b) = pair;
+    // println!("{} {}", a, b);
+
+    // 枚举类型创建
+    let pressed = WebEvent::KeyPress('x');
+    // `to_owned()` creates an owned `String` from a string slice.
+    let _pasted  = WebEvent::Paste("my text".to_owned()); // 未使用变量使用下划线标识，否则编译器会报错
+    let _click   = WebEvent::Click { x: 20, y: 80 };
+    let _load    = WebEvent::PageLoad;
+    let _unload  = WebEvent::PageUnload;
+
+    inspect(pressed); // ...
+
+    use crate::Status::*;
+    // 等价于 `Status::Poor`. 上面使用了 use 可以这么写
+    let status = Poor;
+
+    match status {
+        Rich => println!("The rich have lots of money!"),
+        Poor => println!("The poor have no money..."),
+    }
+
+    println!("zero is {}", Number::Zero as i32);
+    println!("one is {}", Number::One as i32);
+
+    // 需要使用 as 关键词转换，否则会因为类型报错，Color::Red 是 Color 类型
+    println!("roses are #{:06x}", Color::Red as i32);
+    println!("violets are #{:06x}", Color::Blue as i32);
+}
+```
