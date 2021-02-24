@@ -311,3 +311,55 @@ fn main() {
     println!("violets are #{:06x}", Color::Blue as i32);
 }
 ```
+
+## Variable Bindings
+
+```rust
+fn main() {
+    #![allow(unused_variables)]
+    #![allow(unused_assignments)]
+
+    let _immutable_binding = 1;
+    let mut mutable_binding = 1; // mut 关键词的变量才可以修改
+    mutable_binding += 1;
+    // _immutable_binding += 1; 这行编译会报错
+
+    let long_lived_binding = 1;
+    let shadowed_binding = 1;
+    let a_binding; // 未初始化变量
+    let mut _mutable_integer = 7i32;
+    {
+        let short_lived_binding = 2;
+        println!("inner short: {}", short_lived_binding);
+
+        // 当前范围可以拿到外部范围的变量
+        println!("before being shadowed: {}", shadowed_binding);
+        let shadowed_binding = "abc"; // 可以重新绑定赋值
+        println!("shadowed in inner block: {}", shadowed_binding);
+
+        let x = 2;
+        a_binding = x * x; // 内部可初始化变量
+
+        let _mutable_integer = _mutable_integer;
+        // _mutable_integer = 50; 虽然 _mutable_integer 外部是 mut，但是上面重新绑定无 mut 关键词，这里是不能更改的
+    }
+    // println!("outer short: {}", short_lived_binding);  // 这行编译会报错，变量 short_lived_binding 对当范围不可见
+    println!("outer long: {}", long_lived_binding);
+
+    // 虽然上面块内改变了这个值，但是对这里不可见
+    println!("outside inner block: {}", shadowed_binding);
+    // 外部可以重新绑定
+    let shadowed_binding = 2;
+    println!("shadowed in outer block: {}", shadowed_binding);
+
+    println!("a binding: {}", a_binding);
+
+    let another_binding;
+    // println!("another binding: {}", another_binding); // 这行编译会报错，another_binding 未初始化
+    another_binding = 1;
+    println!("another binding: {}", another_binding);
+
+    // 当前范围有 mut 关键词，可更改
+    _mutable_integer = 3;
+}
+```
