@@ -363,3 +363,71 @@ fn main() {
     _mutable_integer = 3;
 }
 ```
+
+## Types
+
+```rust
+// Suppress all warnings from casts which overflow.
+#![allow(overflowing_literals)]
+
+fn main() {
+    let decimal = 65.4321_f32;
+
+    let integer = decimal as u8;
+    let character = integer as char;
+
+    // 浮点不能转换成 char
+    // let character = decimal as char;
+
+    println!("Casting: {} -> {} -> {}", decimal, integer, character);
+
+    // when casting any value to an unsigned type, T,
+    // T::MAX + 1 is added or subtracted until the value
+    // fits into the new type
+
+    // 1000 already fits in a u16
+    println!("1000 as a u16 is: {}", 1000 as u16);
+
+    // 1000 - 256 - 256 - 256 = 232
+    // 1000 => 0b1111101000 i32 => u8 0b11101000 232 高位会被截断
+    println!("1000 as a u8 is : {}", 1000 as u8);
+    // -1 + 256 = 255
+    // -1 => 0b11111111 => u8 0b11111111 255
+    println!("-1 => 0b{:b}  -1 as a u8 is : {} ", -1i8, (-1i8) as u8);
+
+    // 对于正数有： 1000i32 as u8 == 1000 % 256
+    println!("1000 mod 256 is : {}", 1000 % 256);
+
+    // When casting to a signed type, the (bitwise) result is the same as
+    // first casting to the corresponding unsigned type. If the most significant
+    // bit of that value is 1, then the value is negative.
+
+    println!(" 128 as a i16 is: {}", 128 as i16);
+    // 128 => 0b10000000 => i8 => 0b10000000 符号位为1 正好转换为负数 -128
+    // 负数以其正值的补码形式表达：0b10000000-1 = 0b01111111 再按位取反 0b1000000 => 128
+    println!("128 as a i8 is : {}", 128 as i8);
+
+    // 1000 as u8 -> 232
+    println!("1000 as a u8 is : {}", 1000 as u8);
+    // 232 => 0b11101000 => -1 => 0b11100111 => 取反 => 0b00011000 => 十进制为 24，这里结果为 -24
+    println!("232 => 0b{:b} 232 as a i8 is : {}", 232, 232 as i8);
+    
+    // Since Rust 1.45, the `as` keyword performs a *saturating cast* when casting from float to int.  
+    // If the floating point value exceeds the upper bound or is less than the lower bound, the returned value will be equal to the bound crossed.
+    
+    // 1.45 版本之后浮点数转换如果超过范围则取临近的极值
+    println!("300.0 is {}", 300.0_f32 as u8); // 300.0 is 255
+    println!("-100.0 as u8 is {}", -100.0_f32 as u8); // -100.0 as u8 is 0
+    println!("nan as u8 is {}", f32::NAN as u8); // nan as u8 is 0
+    
+    // This behavior incures a small runtime cost and can be avoided with unsafe methods, however the results might overflow and return **unsound values**. Use these methods wisely:
+    // 上面的转换实际上可能会加入额外的逻辑在代码中，会有一些小成本，unsafe 可避免这种问题
+    unsafe {
+        // 以下行为为内部函数行为，使用 LLVM IR fptoui/fptosi 指令，超出范围的值会导致行为不确定 https://doc.rust-lang.org/std/intrinsics/fn.float_to_int_unchecked.html
+        // 这些值在 LLVM 中称作 poisonvalues https://llvm.org/docs/LangRef.html#poisonvalues
+        println!("300.0 is {}", 300.0_f32.to_int_unchecked::<u8>()); // 300.0 is 44
+        println!("-100.0 as u8 is {}", (-100.0_f32).to_int_unchecked::<u8>()); // -100.0 as u8 is 156
+        println!("nan as u8 is {}", f32::NAN.to_int_unchecked::<u8>()); // nan as u8 is 0
+    }
+}
+```
