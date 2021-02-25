@@ -429,5 +429,30 @@ fn main() {
         println!("-100.0 as u8 is {}", (-100.0_f32).to_int_unchecked::<u8>()); // -100.0 as u8 is 156
         println!("nan as u8 is {}", f32::NAN.to_int_unchecked::<u8>()); // nan as u8 is 0
     }
+
+    let elem = 5u8;
+    let mut vec = Vec::new();
+    vec.push(elem);
+    // vec.push(2f32); 自动推断 vec 为 Vec<u8> 类型，这里会报错
+    println!("{:?}", vec);
+
+    // 类型别名
+    type NanoSecond = u64;
+    type Inch = u64;
+
+    // 注释允许使用非驼峰命名，一般情况下别名都使用驼峰命名
+    #[allow(non_camel_case_types)]
+    type u64_t = u64;
+
+    // `NanoSecond` = `Inch` = `u64_t` = `u64`.
+    let nanoseconds: NanoSecond = 5 as u64_t;
+    let inches: Inch = 2 as u64_t;
+
+    // Note that type aliases *don't* provide any extra type safety, because
+    // aliases are *not* new types
+    println!("{} nanoseconds + {} inches = {} unit?",
+             nanoseconds,
+             inches,
+             nanoseconds + inches);
 }
 ```
