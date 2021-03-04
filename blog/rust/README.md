@@ -3,7 +3,7 @@
 主要是一些 Rust 语法记录，用于学习 Rust。
 源于：[rust-by-example](https://doc.rust-lang.org/stable/rust-by-example/index.html)
 
-[[toc]]
+[toc]
 
 * [Flow of Control](flow-of-control.md)
 

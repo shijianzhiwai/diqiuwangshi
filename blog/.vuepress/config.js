@@ -59,7 +59,8 @@ module.exports = {
         lineNumbers: true,
         toc: {
             "containerClass": "table-of-contents1", // vuepress 博客主题会把这个默认覆盖成 none，改个名
-        }
+            "markerPattern": /^\[toc\]/im,
+        },
     },
     plugins: {
         '@vuepress/back-to-top': {},

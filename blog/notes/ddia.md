@@ -1,6 +1,6 @@
 # 《设计数据密集型应用》（英语：Designing Data-Intensive Application，DDIA）
 
-[[toc]]
+[toc]
 
 ## 第一部分 数据系统的基石
 
