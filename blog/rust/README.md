@@ -5,6 +5,8 @@
 
 [[toc]]
 
+* [Flow of Control](flow-of-control.md)
+
 ## Hello World
 
 文档：[Module std::fmt](https://doc.rust-lang.org/std/fmt/)
@@ -454,5 +456,127 @@ fn main() {
              nanoseconds,
              inches,
              nanoseconds + inches);
+}
+```
+
+## Conversion
+
+```rust
+use std::convert::From;
+use std::convert::TryFrom;
+use std::convert::TryInto;
+use std::fmt;
+
+#[derive(Debug)]
+struct Number {
+    value: i32,
+}
+
+impl From<i32> for Number {
+    fn from(item: i32) -> Self {
+        Number { value: item }
+    }
+}
+
+// PartialEq 用于判断两个结构体相等的属性
+#[derive(Debug, PartialEq)]
+struct EvenNumber(i32);
+
+impl TryFrom<i32> for EvenNumber {
+    type Error = ();
+
+    fn try_from(value: i32) -> Result<Self, Self::Error> {
+        if value % 2 == 0 {
+            Ok(EvenNumber(value))
+        } else {
+            Err(())
+        }
+    }
+}
+
+struct Circle {
+    radius: i32
+}
+
+impl fmt::Display for Circle {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        write!(f, "Circle of radius {}", self.radius)
+    }
+}
+
+fn main() {
+    // From and Into
+    // 标准库自带的 from 实现
+    let my_str = "hello";
+    let my_string = String::from(my_str);
+    println!("{}", my_string);
+
+    // 实现自己的 from
+    let num = Number::from(30);
+    println!("My number is {:?}", num);
+
+    // 另一种转换方式
+    let int = 5;
+    // 这里要生命类型，否则编译器会报错
+    let num: Number = int.into();
+    let t_str: String = my_string.into();
+    println!("My number is {:?} String: {}", num, t_str);
+
+    // TryFrom 和 TryInto 是容易出错的场景，可以返回转换失败的错误
+    assert_eq!(EvenNumber::try_from(8), Ok(EvenNumber(8)));
+    assert_eq!(EvenNumber::try_from(5), Err(()));
+
+    let result: Result<EvenNumber, ()> = 8i32.try_into();
+    assert_eq!(result, Ok(EvenNumber(8)));
+    let result: Result<EvenNumber, ()> = 5i32.try_into();
+    assert_eq!(result, Err(()));
+
+    // 转换字符串为实现 Display 方法
+    let circle = Circle { radius: 6 };
+    println!("{}", circle.to_string());
+
+    // 解析字符串
+    // i32 类型实现 FromStr 函数
+    // 两种写法，一种是提前定义好类型，另外是传入泛型类型
+    let parsed: i32 = "5".parse().unwrap();
+    let turbo_parsed = "10".parse::<i32>().unwrap();
+
+    let sum = parsed + turbo_parsed;
+    println!("Sum: {:?}", sum);
+}
+
+```
+
+## Expressions
+
+```rust
+fn main() {
+    #![allow(unused_must_use)]
+    #![allow(path_statements)]
+    // 变量绑定
+    let x = 5;
+
+    // 表达式
+    x;
+    x + 1;
+    15;
+
+    let x = 5u32;
+    let y = {
+        let x_squared = x * x;
+        let x_cube = x_squared * x;
+
+        // y 等于最后这个表达式的值，大括号为块表达
+        x_cube + x_squared + x
+    };
+
+    let z = {
+        // 分号会取消这个表达式，z 的值会是空元祖 ()
+        2 * x;
+    };
+
+    println!("x is {:?}", x);
+    println!("y is {:?}", y);
+    println!("z is {:?}", z);
 }
 ```
