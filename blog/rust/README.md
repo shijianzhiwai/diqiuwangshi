@@ -5,7 +5,7 @@
 
 [toc]
 
-* [Flow of Control](flow-of-control.md)
+* [[Flow of Control]]
 
 ## Hello World
 
@@ -368,6 +368,8 @@ fn main() {
 
 ## Types
 
+Rust 使用 [[LLVM]] 作为编译器。
+
 ```rust
 // Suppress all warnings from casts which overflow.
 #![allow(overflowing_literals)]
@@ -548,6 +550,8 @@ fn main() {
 ```
 
 ## Expressions
+
+[[Expressions]]
 
 ```rust
 fn main() {

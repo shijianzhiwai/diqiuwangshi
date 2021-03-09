@@ -61,6 +61,22 @@ module.exports = {
             "containerClass": "table-of-contents1", // vuepress 博客主题会把这个默认覆盖成 none，改个名
             "markerPattern": /^\[toc\]/im,
         },
+        extendMarkdown: md => {
+            const sanitize = require('sanitize-filename')
+            const wikilinks = require('markdown-it-wikilinks')({
+                postProcessPageName: (pageName) => {
+                    pageName = pageName.trim()
+                    pageName = pageName.split('/').map(sanitize).join('/')
+                    pageName = pageName.replace(/\s+/g, '-')
+                    return pageName.toLowerCase()
+                },
+                postProcessLabel: (label) => {
+                    label = label.trim()
+                    return "[[ " + label + " ]]"
+                }
+            })
+            md.use(wikilinks)
+        },
     },
     plugins: {
         '@vuepress/back-to-top': {},

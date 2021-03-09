@@ -17,6 +17,7 @@
     "vuepress": "^1.8.1"
   },
   "dependencies": {
-    "markdown-it-table-of-contents": "^0.5.2"
+    "markdown-it-table-of-contents": "^0.5.2",
+    "markdown-it-wikilinks": "^1.0.1"
   }
 }
