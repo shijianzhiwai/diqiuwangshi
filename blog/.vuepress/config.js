@@ -63,7 +63,8 @@ module.exports = {
         },
         extendMarkdown: md => {
             const sanitize = require('sanitize-filename')
-            const wikilinks = require('markdown-it-wikilinks')({
+            const wikilinks = require('@kwvanderlinde/markdown-it-wikilinks')({
+                linkPattern: /\[\[([\w\s-(\u4e00-\u9fa5)/]+)(\|([\w\s/]+))?\]\]/,
                 postProcessPageName: (pageName) => {
                     pageName = pageName.trim()
                     pageName = pageName.split('/').map(sanitize).join('/')
