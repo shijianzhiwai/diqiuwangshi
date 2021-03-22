@@ -107,5 +107,38 @@ fn main() {
         }
     }
 
+    let names = vec!["Bob", "Frank", "Ferris"];
+
+    for name in names.iter() {
+        match name {
+            &"Ferris" => println!("There is a rustacean among us!"),
+            // 带有 & 符号，vec 在循环之后还可以重用
+            _ => println!("Hello {}", name),
+        }
+    }
+    
+    println!("names: {:?}", names);
+
+    for name in names.into_iter() {
+        match name {
+            "Ferris" => println!("There is a rustacean among us!"),
+            _ => println!("Hello {}", name),
+        }
+    }
+
+    // 使用 into_iter 方法之后 vec 在循环之后就变得不能用了，这句编译会报错
+    // println!("names: {:?}", names);
+
+    let mut names = vec!["Bob", "Frank", "Ferris"];
+
+    for name in names.iter_mut() {
+        *name = match name {
+            // 这里给 Ferris 重新赋值为 There is a rustacean among us!
+            &mut "Ferris" => "There is a rustacean among us!",
+            _ => "Hello",
+        }
+    }
+
+    println!("names: {:?}", names);
 }
 ```
