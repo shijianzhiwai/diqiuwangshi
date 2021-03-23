@@ -1,4 +1,4 @@
-# 《设计数据密集型应用》（英语：Designing Data-Intensive Application，DDIA）
+# 《设计数据密集型应用》（Designing Data-Intensive Application，DDIA）
 
 ## 第一部分 数据系统的基石
 

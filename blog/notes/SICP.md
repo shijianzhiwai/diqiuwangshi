@@ -1,4 +1,4 @@
-# 《计算机程序的构造和解释》（英语：Structure and Interpretation of Computer Programs，SICP）
+# 《计算机程序的构造和解释》（Structure and Interpretation of Computer Programs，SICP）
 
 总感觉这本书充满着哲学意味，窥探一门计算机编程语言的设计哲学与内在逻辑。
 

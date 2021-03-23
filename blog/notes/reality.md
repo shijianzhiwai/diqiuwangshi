@@ -1,4 +1,4 @@
-# 《现实不似你所见》（英文：Reality Is Not What It Seems：The Journey to Quantum Gravity）
+# 《现实不似你所见》（Reality Is Not What It Seems：The Journey to Quantum Gravity）
 
 其实这种类型的书读过一些，只是并没有留下太多划线或者笔记，这是为数不多留下的。
 
