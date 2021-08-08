@@ -9,6 +9,9 @@ module.exports = {
         sidebar: 'auto',
         search: true,
         searchMaxSuggestions: 10,
+        globalPagination: {
+            lengthPerPage: 10,
+        },
         // directories: [
         //     {
         //         id: 'post',
