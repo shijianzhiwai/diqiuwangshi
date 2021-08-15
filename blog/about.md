@@ -2,7 +2,7 @@
 title: About 
 ---
 
-![test](./about.jpg)
+![test](./xuxu.jpg)
 
 > PS：博客中会存在 `[[ 内容 ]]` 的标识，目前博客可能无法渲染或者跳转，那些是 "Bi-Directional Links"，目前我在使用 [Foam](https://github.com/foambubble/foam) 做知识管理。
 
